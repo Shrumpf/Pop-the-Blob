@@ -1,16 +1,24 @@
-import PhaserLogo from '../objects/phaserLogo'
-import FpsText from '../objects/fpsText'
+import Blob from "../models/blob";
+import FpsText from "../models/fpsText"
+import ScoreText from "../models/score";
+import phaserJuice from "../libs/phaserJuice.js";
 
 export default class MainScene extends Phaser.Scene {
-  fpsText
+
+  fpsText: FpsText;
+  scoreText: ScoreText;
+  juice;
 
   constructor() {
-    super({ key: 'MainScene' })
+    super({ key: 'MainScene' });
   }
 
   create() {
-    new PhaserLogo(this, this.cameras.main.width / 2, 0)
-    this.fpsText = new FpsText(this)
+    this.fpsText = new FpsText(this);
+    this.scoreText = new ScoreText(this);
+
+    this.juice = new phaserJuice(this);
+    new Blob(this, this.cameras.main.width / 2, this.cameras.main.height / 1.5);
 
     // display the Phaser.VERSION
     this.add
@@ -22,6 +30,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   update() {
-    this.fpsText.update()
+    this.fpsText.update();
+    this.scoreText.update();
   }
 }
